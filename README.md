@@ -22,7 +22,7 @@ int main() {
 이는 다음과 같이 출력합니다.
 
 ```
-```
+\`\`\`
 
 #include<stdio.h>
 
@@ -30,6 +30,6 @@ int main() {
 	printf("Hello Worldn");
 	return 0;
 }
-```
+\`\`\`
 ```
 
