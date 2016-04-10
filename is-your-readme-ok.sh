@@ -29,21 +29,14 @@ CommandInsert() {
         exit 1
     fi
 
-    if [ "$2" = true ]; then
-        echo '<pre lang="no-highlight"><code>```'
-    else
-        echo '```'
-    fi
+    echo '```'
 
     while read line; do
         echo $line
     done < $1
     echo $line
-    if [ "$2" = true ]; then
-        echo '<pre lang="no-highlight"><code>```'
-    else
-        echo '```'
-    fi
+
+    echo '```'
 }
 
 CommandPrint() {
@@ -53,8 +46,7 @@ CommandPrint() {
 code_block=false
 # read line from src
 while read line; do
-    if [ "${line:0:2}" == "%%" ]; then
-
+    if [ "${line:0:2}" == "%%" ] && [ "$code_block" != true ]; then
         # get command
         command=`GetCommand ${line:2}`
         args=`GetArguments ${line:2}`
@@ -71,14 +63,14 @@ while read line; do
             echo "Command $command is not supported!" >&2
             exit 1
         fi
-    elif [ "${line:0:3}" == "\`\`\`" ]; then
-        if [ "$code_block" = true ]; then
-            code_block=false
-        else
-            code_block=true
-        fi
-        echo $line
     else
+        if [ "${line:0:3}" == "\`\`\`" ]; then
+            if [ "$code_block" = true ]; then
+                code_block=false
+            else
+                code_block=true
+            fi
+        fi
         echo $line
     fi
 done < $src
