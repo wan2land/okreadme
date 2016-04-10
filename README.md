@@ -22,7 +22,7 @@ int main() {
 이는 다음과 같이 출력합니다.
 
 ```
-```
+<pre lang="no-highlight"><code>```
 
 #include<stdio.h>
 
@@ -30,6 +30,5 @@ int main() {
 	printf("Hello Worldn");
 	return 0;
 }
+<pre lang="no-highlight"><code>```
 ```
-```
-

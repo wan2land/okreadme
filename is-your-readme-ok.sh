@@ -6,7 +6,7 @@ if [ ! -z "$1" ]; then
 fi
 
 if [ ! -f $src ]; then
-    echo "File $src does not exist!"
+    echo "File $src does not exist!" >&2
     exit 1
 fi
 
@@ -25,21 +25,32 @@ GetArguments() {
 
 CommandInsert() {
     if [ ! -f $1 ]; then
-        echo "File $1 does not exists!"
+        echo "File $1 does not exists!" >&2
         exit 1
     fi
-    echo '```'
+
+    if [ "$2" = true ]; then
+        echo '<pre lang="no-highlight"><code>```'
+    else
+        echo '```'
+    fi
+
     while read line; do
         echo $line
     done < $1
     echo $line
-    echo '```'
+    if [ "$2" = true ]; then
+        echo '<pre lang="no-highlight"><code>```'
+    else
+        echo '```'
+    fi
 }
 
 CommandPrint() {
     echo $1
 }
 
+code_block=false
 # read line from src
 while read line; do
     if [ "${line:0:2}" == "%%" ]; then
@@ -53,13 +64,20 @@ while read line; do
         # echo "arguments : ($args)"
 
         if [ "$command" == "insert" ]; then
-            CommandInsert $args
+            CommandInsert $args $code_block
         elif [ "$command" == "print" ]; then
             CommandPrint $args
         else
-            echo "Command $command is not supported!"
+            echo "Command $command is not supported!" >&2
             exit 1
         fi
+    elif [ "${line:0:3}" == "\`\`\`" ]; then
+        if [ "$code_block" = true ]; then
+            code_block=false
+        else
+            code_block=true
+        fi
+        echo $line
     else
         echo $line
     fi
