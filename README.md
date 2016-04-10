@@ -32,3 +32,10 @@ int main() {
 }
 <pre lang="no-highlight"><code>```
 ```
+
+
+## Todos
+
+ - Git Hook
+ - add command `insert template/hello.c:2-7`
+ - add command `insert template/hello.c/int main()`

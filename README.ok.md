@@ -16,3 +16,10 @@ Is You README Ok?
 ```
 %% insert templates/hello.c
 ```
+
+
+## Todos
+
+ - Git Hook
+ - add command `insert template/hello.c:2-7`
+ - add command `insert template/hello.c/int main()`
