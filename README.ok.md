@@ -33,8 +33,13 @@ $ cp pre-commit.sample /your/path/project/.git/hooks/pre-commit
 
 %% insert templates/hello.c
 
-이는 다음과 같이 출력합니다. (아래 예시에서 `'''`는 코드블럭 Markdown입니다.)
+**Command**
 
+```
+$ okreadme > README.md
+```
+
+이는 다음과 같이 출력합니다. (아래 예시에서 `'''`는 코드블럭 Markdown입니다.)
 
 ```
 '''c
@@ -47,6 +52,19 @@ int main() {
 }
 
 '''
+```
+
+## Command
+
+```
+$ okreadme {targetfile}
+```
+
+That's all. Default `{targetfile}` is `README.ok.md`
+If you want to save output, use command below.
+
+```
+$ okreadme {targetfile} > README.md
 ```
 
 ## Syntax
