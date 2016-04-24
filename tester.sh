@@ -1,5 +1,5 @@
 
-exe="./is-your-readme-ok.sh"           # The application (from command arg)
+exe="./okreadme"           # The application (from command arg)
 diff="diff -iad"   # Diff command, or what ever
 
 run_test() {
