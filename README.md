@@ -98,6 +98,24 @@ The language using the `{`, `}` chracters as a code block is all available.
 %% insert src/main.c@int main()
 ```
 
+or,
+
+```
+/* area_func_bar { */
+function bar()
+{
+	echo "Bar";
+	if (true) {
+		echo "!!!!";
+	}
+}
+/* } */
+```
+
+```
+%% insert src/main.c@area_func_bar
+```
+
 ## Todos
 
 - tab index
