@@ -27,13 +27,13 @@ int main() {
 '''
 ```
 
+## Install
 
-## Todos
+### Git pre-commit Hook
 
- - Git Hook
- - add command `insert template/hello.c:2-7`
- - add command `insert template/hello.c/int main()`
-
+```sh
+$ cp pre-commit.sample /your/path/project/.git/hooks/pre-commit
+```
 
 ## Ref.
 

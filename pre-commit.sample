@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -f "README.ok.md" ]; then
+	okreadme > README.md
+	git add README.md
+fi
