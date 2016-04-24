@@ -23,13 +23,19 @@ GetArguments() {
     echo `Trim $1` | sed 's/ *'$repl' *//'
 }
 
+ExtensionToLanguage() {
+    echo ""
+}
+
 CommandInsert() {
     if [ ! -f $1 ]; then
         echo "File $1 does not exists!" >&2
         exit 1
     fi
 
-    echo '```'
+    echo "**"$1"**"
+    echo
+    echo '```'${1##*.} # extension
 
     while read line; do
         echo $line

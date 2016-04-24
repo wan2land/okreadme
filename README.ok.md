@@ -11,10 +11,11 @@ Is You README Ok?
 
 %% insert templates/hello.c
 
-이는 다음과 같이 출력합니다.
+이는 다음과 같이 출력합니다. (아래 예시에서 `'''`는 코드블럭 Markdown입니다.)
+
 
 ```
- ```
+'''c
 
 #include<stdio.h>
 
@@ -22,7 +23,8 @@ int main() {
 	printf("Hello Worldn");
 	return 0;
 }
- ```
+
+'''
 ```
 
 
