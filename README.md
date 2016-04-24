@@ -100,6 +100,8 @@ The language using the `{`, `}` chracters as a code block is all available.
 
 ## Todos
 
+- tab index
+- insert inner
 - install script
 - all language support.... (....i don't know.....)
 

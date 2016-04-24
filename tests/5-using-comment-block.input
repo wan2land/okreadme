@@ -1,0 +1,3 @@
+## Load by Function Name, Using Comment Block
+
+%% insert ../templates/hello.php@area_func_bar

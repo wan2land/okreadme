@@ -1,0 +1,11 @@
+## Load by Function Name, Using Comment Block
+
+```php
+function bar()
+{
+	echo "Bar";
+	if (true) {
+		echo "!!!!";
+	}
+}
+```

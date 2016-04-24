@@ -69,20 +69,23 @@ CommandInsert() {
                 echo $line
             fi
         elif [ $subset_type -eq 2 ]; then
-            if [[ $line == *$subset_blk_name ]]; then
-                echo $line
+            if [ $subset_blk_trigger -eq 0 ] && [[ $line == *$subset_blk_name* ]]; then
                 subset_blk_trigger=1
-            elif [ $subset_blk_trigger -eq 1 ] && [[ $line == *"{" ]]; then
-                echo $line
+            fi
+            if [ $subset_blk_trigger -eq 1 ] && [[ $line == *"{"* ]]; then
                 subset_blk_trigger=2
                 subset_blk_count=$(($subset_blk_count+1))
             elif [ $subset_blk_trigger -eq 2 ]; then
-                echo $line
-                if [[ $line == *"}" ]]; then
+                if [[ $line == *"{"* ]]; then
+                    subset_blk_count=$(($subset_blk_count+1))
+                fi
+                if [[ $line == *"}"* ]]; then
                     subset_blk_count=$(($subset_blk_count-1))
                 fi
                 if [ $subset_blk_count -eq 0 ]; then
                     subset_blk_trigger=0
+                else
+                    echo $line
                 fi
             fi
         else
