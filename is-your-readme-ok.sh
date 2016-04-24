@@ -28,18 +28,21 @@ ExtensionToLanguage() {
 }
 
 CommandInsert() {
-    if [ ! -f $1 ]; then
+    filename=$(dirname "$src")"/"$1
+    if [ ! -f $filename ]; then
         echo "File $1 does not exists!" >&2
         exit 1
     fi
 
+    extension=${filename##*.}
+
     echo "**"$1"**"
     echo
-    echo '```'${1##*.} # extension
+    echo '```'$extension
 
     while read line; do
         echo $line
-    done < $1
+    done < $filename
     echo $line
 
     echo '```'
