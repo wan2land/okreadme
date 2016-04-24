@@ -119,9 +119,7 @@ function bar()
 ## Todos
 
 - tab index
-- insert inner
 - install script
-- all language support.... (....i don't know.....)
 
 ## Ref.
 
