@@ -1,0 +1,6 @@
+
+## Load By Func..
+
+%% insert ../templates/hello.php@function bar()
+
+blbla...

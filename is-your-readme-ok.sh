@@ -29,7 +29,7 @@ ExtensionToLanguage() {
 
 CommandInsert() {
 
-    filename=${1%%:*}
+    filename=${1%%:*};filename=${filename%%@*}
     filepath=$(dirname "$SOURCE_FILE")"/$filename"
     fileext=${filepath##*.}
 
@@ -44,11 +44,14 @@ CommandInsert() {
 
     if [ "${subset:0:1}" == ':' ]; then
         subset_type=1
-        startline=${subset:1};startline=${startline%%-*}
-        endline=${subset##*-}
+        subset_ln_st=${subset:1};subset_ln_st=${subset_ln_st%%-*}
+        subset_ln_ed=${subset##*-}
     fi
-    if [ "${subset:0:1}" == '/' ]; then
+    if [ "${subset:0:1}" == '@' ]; then
         subset_type=2
+        subset_blk_name=${subset:1};
+        subset_blk_count=0
+        subset_blk_trigger=0
     fi
 
     echo '```'$fileext
@@ -57,25 +60,49 @@ CommandInsert() {
     linenum=1
     while read line; do
         if [ $subset_type -eq 1 ]; then
-            if [ $startline -le $linenum ] && [ $endline -ge $linenum ]; then
+            if [ $subset_ln_st -le $linenum ] && [ $subset_ln_ed -ge $linenum ]; then
                 echo $line
             fi
         elif [ $subset_type -eq 2 ]; then
-            :
+            if [[ $line == *$subset_blk_name ]]; then
+                echo $line
+                subset_blk_trigger=1
+            elif [ $subset_blk_trigger -eq 1 ] && [[ $line == *"{" ]]; then
+                echo $line
+                subset_blk_trigger=2
+                subset_blk_count=$(($subset_blk_count+1))
+            elif [ $subset_blk_trigger -eq 2 ]; then
+                echo $line
+                if [[ $line == *"}" ]]; then
+                    subset_blk_count=$(($subset_blk_count-1))
+                fi
+                if [ $subset_blk_count -eq 0 ]; then
+                    subset_blk_trigger=0
+                fi
+            fi
         else
             echo $line
         fi
         linenum=$((linenum+1))
     done < $filepath
 
+    # print last line
     if [ $subset_type -eq 1 ]; then
-        if [ $startline -le $linenum ] && [ $endline -ge $linenum ]; then
-            echo $line
+        if [ $subset_ln_st -le $linenum ] && [ $subset_ln_ed -ge $linenum ]; then
+            if [ "$line" != '' ]; then
+                echo $line
+            fi
         fi
     elif [ $subset_type -eq 2 ]; then
-        :
+        if [ $subset_blk_trigger -gt 0 ]; then
+            if [ "$line" != '' ]; then
+                echo $line
+            fi
+        fi
     else
-        echo $line
+        if [ "$line" != '' ]; then
+            echo $line
+        fi
     fi
 
     echo '```'

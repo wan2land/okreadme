@@ -1,0 +1,11 @@
+
+## Load By Func..
+
+```php
+function bar()
+{
+	echo "Bar";
+}
+```
+
+blbla...
