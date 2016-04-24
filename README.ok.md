@@ -33,3 +33,9 @@ int main() {
  - Git Hook
  - add command `insert template/hello.c:2-7`
  - add command `insert template/hello.c/int main()`
+
+
+## Ref.
+
+- http://www.dreamy.pe.kr/zbxe/CodeClip/3766012
+- http://tldp.org/LDP/abs/html/comparison-ops.html

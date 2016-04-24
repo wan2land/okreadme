@@ -1,12 +1,12 @@
 
-src="README.ok.md"
+SOURCE_FILE="README.ok.md"
 
 if [ ! -z "$1" ]; then
-    src=$1
+    SOURCE_FILE=$1
 fi
 
-if [ ! -f $src ]; then
-    echo "File $src does not exist!" >&2
+if [ ! -f $SOURCE_FILE ]; then
+    echo "File $SOURCE_FILE does not exist!" >&2
     exit 1
 fi
 
@@ -28,22 +28,55 @@ ExtensionToLanguage() {
 }
 
 CommandInsert() {
-    filename=$(dirname "$src")"/"$1
-    if [ ! -f $filename ]; then
-        echo "File $1 does not exists!" >&2
+
+    filename=${1%%:*}
+    filepath=$(dirname "$SOURCE_FILE")"/$filename"
+    fileext=${filepath##*.}
+
+    if [ ! -f $filepath ]; then
+        echo "File $filepath does not exists!" >&2
         exit 1
     fi
 
-    extension=${filename##*.}
+    # subset checking
+    subset=${1/$filename/}
+    subset_type=0 # 0: none 1:lines 2:block
 
-    echo "**"$1"**"
-    echo
-    echo '```'$extension
+    if [ "${subset:0:1}" == ':' ]; then
+        subset_type=1
+        startline=${subset:1};startline=${startline%%-*}
+        endline=${subset##*-}
+    fi
+    if [ "${subset:0:1}" == '/' ]; then
+        subset_type=2
+    fi
 
+    echo '```'$fileext
+
+    # sed '!d' $filepath
+    linenum=1
     while read line; do
+        if [ $subset_type -eq 1 ]; then
+            if [ $startline -le $linenum ] && [ $endline -ge $linenum ]; then
+                echo $line
+            fi
+        elif [ $subset_type -eq 2 ]; then
+            :
+        else
+            echo $line
+        fi
+        linenum=$((linenum+1))
+    done < $filepath
+
+    if [ $subset_type -eq 1 ]; then
+        if [ $startline -le $linenum ] && [ $endline -ge $linenum ]; then
+            echo $line
+        fi
+    elif [ $subset_type -eq 2 ]; then
+        :
+    else
         echo $line
-    done < $filename
-    echo $line
+    fi
 
     echo '```'
 }
@@ -53,7 +86,7 @@ CommandPrint() {
 }
 
 code_block=false
-# read line from src
+# read line from SOURCE_FILE
 while read line; do
     if [ "${line:0:2}" == "%%" ] && [ "$code_block" != true ]; then
         # get command
@@ -82,4 +115,4 @@ while read line; do
         fi
         echo $line
     fi
-done < $src
+done < $SOURCE_FILE

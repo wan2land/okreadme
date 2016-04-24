@@ -1,14 +1,10 @@
 
-## Hello World
+## Load By Linenums..
 
 ```c
-
-#include<stdio.h>
-
 int main() {
 	printf("Hello Worldn");
 	return 0;
 }
 ```
 
-blabla...
