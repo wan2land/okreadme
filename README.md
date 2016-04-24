@@ -100,7 +100,7 @@ The language using the `{`, `}` chracters as a code block is all available.
 
 or,
 
-```
+```php
 /* area_func_bar { */
 function bar()
 {
