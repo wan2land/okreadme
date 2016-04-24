@@ -3,6 +3,10 @@
 SOURCE_FILE="README.ok.md"
 
 if [ ! -z "$1" ]; then
+    if [ "$1" == '-v' ]; then
+        echo "Is Your README OK? v0.1"
+        exit 0
+    fi
     SOURCE_FILE=$1
 fi
 

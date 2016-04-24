@@ -1,6 +1,28 @@
 Is You README Ok?
 ===
 
+if you want **require** syntax in README.md...
+
+README.ok.md -> README.md
+
+## Installation
+
+```sh
+$ git clone git@github.com:wan2land/is-your-readme-ok.git
+$ cd is-your-readme-ok
+$ cp okreadme /your/path/bin
+```
+
+type `okreadme -v`. print `Is Your README OK? v0.x`.
+
+### Git pre-commit Hook
+
+```sh
+$ cp pre-commit.sample /your/path/project/.git/hooks/pre-commit
+```
+
+## How to use
+
 `README.ok.md` 파일을 다음과 같이 작성합시다.
 
 ```
@@ -35,13 +57,33 @@ int main() {
 '''
 ```
 
-## Install
+## Syntax
 
-### Git pre-commit Hook
+### 1. Print all source.
 
-```sh
-$ cp pre-commit.sample /your/path/project/.git/hooks/pre-commit
 ```
+%% insert src/main.c
+```
+
+### 2. Print subset by line numbers.
+
+```
+%% insert src/main.c:4-20
+```
+
+### 3. Print subset by function name.
+
+The language using the `{`, `}` chracters as a code block is all available.
+(cf. c, php, javascript, ... )
+
+```
+%% insert src/main.c@int main()
+```
+
+## Todos
+
+- install script
+- all language support.... (....i don't know.....)
 
 ## Ref.
 
