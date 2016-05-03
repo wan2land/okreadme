@@ -116,10 +116,6 @@ CommandInsert() {
     echo '```'
 }
 
-CommandPrint() {
-    echo $1
-}
-
 code_block=false
 # read line from SOURCE_FILE
 while read line; do
@@ -134,8 +130,6 @@ while read line; do
 
         if [ "$command" == "insert" ]; then
             CommandInsert $args $code_block
-        elif [ "$command" == "print" ]; then
-            CommandPrint $args
         else
             echo "Command $command is not supported!" >&2
             exit 1
