@@ -1,3 +1,4 @@
+#!/bin/bash
 
 exe="./okreadme"           # The application (from command arg)
 diff="diff -iad"   # Diff command, or what ever
@@ -26,7 +27,8 @@ run_test() {
     fi
 
     # Execute diff
-    $diff $run_out "$2"
+    # echo "$diff $run_out $2"
+    $diff $run_out $2
 
 
     # Check exit code from previous command (ie diff)

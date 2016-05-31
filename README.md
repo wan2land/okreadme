@@ -36,7 +36,7 @@ $ cp pre-commit.sample /your/path/project/.git/hooks/pre-commit
 #include<stdio.h>
 
 int main() {
-	printf("Hello Worldn");
+	printf("Hello World\n");
 	return 0;
 }
 ```

@@ -1,0 +1,6 @@
+
+## Issue 1
+
+```php
+$container = new \Wandu\DI\Container();
+```
