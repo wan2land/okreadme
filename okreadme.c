@@ -1,4 +1,5 @@
 
+#include <signal.h>
 #include <stdio.h>
 #include <string.h>
 #include "okreadme_lib.h"
@@ -30,8 +31,14 @@ int main(int argc, string argv[])
         return 1;
     }
 
-    printf("%s\n", okreadme_parse_file(fp, isDebug));
+    char *result = okmd_scan_file(fp, isDebug);
+    if (result == NULL) {
+        fclose(fp);
+        fputs(okmd_last_error_message(), stderr);
+        return 1;
+    }
 
+    printf("%s\n", result);
     fclose(fp);
     return 0;
 }

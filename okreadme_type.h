@@ -8,6 +8,14 @@ extern "C" {
 
 typedef enum {false, true} bool;
 
+enum okmd_error {
+    ERROR_NONE = 0,
+    ERROR_UNDEFINED_FUNCTION,
+    ERROR_MORE_PARAMS,
+    ERROR_INVALID_PARAMS, // type error
+    
+    ERROR_FILE_NOT_FOUND,
+};
 enum okmd_t {
     t_int,
     t_string,

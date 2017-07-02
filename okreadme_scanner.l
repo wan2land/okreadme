@@ -1,17 +1,9 @@
 %x ST_IN_SCRIPTING
 
 %{
+#include <string.h>
 #include <stdio.h>
 #include "okreadme_parser.tab.h"
-
-char* toString(char* string)
-{
-    char* str;
-    str = (char*)malloc(strlen(string) + 1);
-    strcpy(str, string);
-    str[strlen(string)] = '\0';
-    return str;
-}
 
 %}
 
@@ -21,12 +13,12 @@ char* toString(char* string)
     return T_NEWLINE;
 }
 <INITIAL>[^@\n][^\n]* {
-    yylval.string = toString(yytext);
+    yylval.string = strdup(yytext);
     return (T_TEXT);
 }
 <INITIAL>@[A-Za-z_][A-Za-z0-9_]*  {
     // printf("[L]<ST_IN_SCRIPTING>T_FUNC(%s)\n", yytext);
-    yylval.string = toString(yytext);
+    yylval.string = strdup(yytext) + 1;
     BEGIN(ST_IN_SCRIPTING);
     return (T_FUNC);
 }
@@ -37,9 +29,11 @@ char* toString(char* string)
     BEGIN(INITIAL);
     return (T_FUNC_CLOSE_BRACKET);
 }
-<ST_IN_SCRIPTING>\"(\\.|[^\\"])*\" {
+<ST_IN_SCRIPTING>(\"(\\.|[^\\"])*\")|(\'(\\.|[^\\'])*\') {
     // printf("[L]<ST_IN_SCRIPTING>string(%s)\n", yytext);
-    yylval.string = toString(yytext);
+    yylval.string = strdup(yytext) + 1;
+    yylval.string[yyleng - 2] = '\0';
+    
     return (T_STRING);
 }
 <ST_IN_SCRIPTING>[1-9][0-9]*|0 {

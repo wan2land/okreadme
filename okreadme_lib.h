@@ -9,7 +9,10 @@
 extern "C" {
 #endif
 
-char* okreadme_parse_file(FILE *fp, bool isDebug);
+int okmd_last_error();
+char* okmd_last_error_message();
+
+char* okmd_scan_file(FILE *fp, bool isDebug);
 
 #ifdef __cplusplus
 }

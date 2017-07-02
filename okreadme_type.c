@@ -28,10 +28,8 @@ struct okmd_val_list* okmd_val_list_create() {
 
 void okmd_val_list_push(struct okmd_val_list *list, struct okmd_val *item) {
     if (list->count == 0) {
-        printf("okmd_val_list_push > 0\n");
         list->first = item;
     } else {
-        printf("okmd_val_list_push > %d\n", list->count);
         struct okmd_val* pivot = list->first;
         while (pivot->next) {
             printf("while\n");

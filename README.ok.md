@@ -20,12 +20,12 @@ type `okreadme -v`. print `Is Your README OK? v0.x`.
 `README.ok.md` 파일을 다음과 같이 작성합시다.
 
 ```
-ok,, include templates/hello.c
+@code("templates/hello.c")
 ```
 
 그리고 `templates/hello.c`라는 파일이 다음과 같이 작성되어있다면,
 
-ok,, include templates/hello.c
+@code("templates/hello.c")
 
 **Command**
 
