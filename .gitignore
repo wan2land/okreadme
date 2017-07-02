@@ -1,2 +1,9 @@
 .idea
+.vscode
+
+**/*.o
 /tests/*.test
+
+lex.yy.c
+*.tab.*
+okreadme_scanner.c

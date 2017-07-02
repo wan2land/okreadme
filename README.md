@@ -1,5 +1,11 @@
+okmd_val_list_push > 0
+  [Y]@code
+    -> 
+okmd_val_list_push > 0
+  [Y]@code
+    -> 
 Is You README Ok?
-===
+=================
 
 if you want **require** syntax in README.md...
 
@@ -15,51 +21,20 @@ $ cp okreadme /your/path/bin
 
 type `okreadme -v`. print `Is Your README OK? v0.x`.
 
-### Git pre-commit Hook
-
-```sh
-$ cp pre-commit.sample /your/path/project/.git/hooks/pre-commit
-```
-
 ## How to use
 
 `README.ok.md` 파일을 다음과 같이 작성합시다.
 
 ```
-%% insert templates/hello.c
 ```
 
 그리고 `templates/hello.c`라는 파일이 다음과 같이 작성되어있다면,
 
-```c
-
-#include<stdio.h>
-
-int main() {
-	printf("Hello World\n");
-	return 0;
-}
-```
 
 **Command**
 
 ```
 $ okreadme > README.md
-```
-
-이는 다음과 같이 출력합니다. (아래 예시에서 `'''`는 코드블럭 Markdown입니다.)
-
-```
-'''c
-
-#include<stdio.h>
-
-int main() {
-	printf("Hello Worldn");
-	return 0;
-}
-
-'''
 ```
 
 ## Command
@@ -80,14 +55,24 @@ $ okreadme {targetfile} > README.md
 ### 1. Print all source.
 
 ```
-%% insert src/main.c
+ok,, include templates/hello.c
 ```
+
+**Result**
+
+ok,, include templates/hello.c
 
 ### 2. Print subset by line numbers.
 
 ```
-%% insert src/main.c:4-20
+ok,, include templates/hello.c, 4, 20 # line 4 ~ 20
+ok,, include templates/hello.c, 4     # line 4 ~ end
+ok,, include templates/hello.c, , 20  # line start ~ 20
 ```
+
+ok,, include templates/hello.c, 4, 20 # line 4 ~ 20
+ok,, include templates/hello.c, 4     # line 4 ~ end
+ok,, include templates/hello.c, , 20  # line start ~ 20
 
 ### 3. Print subset by function name.
 
@@ -95,7 +80,7 @@ The language using the `{`, `}` chracters as a code block is all available.
 (cf. c, php, javascript, ... )
 
 ```
-%% insert src/main.c@int main()
+ok,, include templates/hello.c, "int main()"
 ```
 
 or,
@@ -113,7 +98,7 @@ function bar()
 ```
 
 ```
-%% insert src/main.c@area_func_bar
+%% include src/main.c@area_func_bar
 ```
 
 ## Todos
@@ -125,3 +110,4 @@ function bar()
 
 - http://www.dreamy.pe.kr/zbxe/CodeClip/3766012
 - http://tldp.org/LDP/abs/html/comparison-ops.html
+
