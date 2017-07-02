@@ -1,9 +1,3 @@
-okmd_val_list_push > 0
-  [Y]@code
-    -> 
-okmd_val_list_push > 0
-  [Y]@code
-    -> 
 Is You README Ok?
 =================
 
@@ -26,10 +20,30 @@ type `okreadme -v`. print `Is Your README OK? v0.x`.
 `README.ok.md` 파일을 다음과 같이 작성합시다.
 
 ```
+```c
+
+#include<stdio.h>
+
+int main() {
+	printf("Hello World\n");
+	return 0;
+}
+
+```
 ```
 
 그리고 `templates/hello.c`라는 파일이 다음과 같이 작성되어있다면,
 
+```c
+
+#include<stdio.h>
+
+int main() {
+	printf("Hello World\n");
+	return 0;
+}
+
+```
 
 **Command**
 

@@ -7,3 +7,5 @@
 lex.yy.c
 *.tab.*
 okreadme_scanner.c
+
+okreadme
