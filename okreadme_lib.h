@@ -12,7 +12,7 @@ extern "C" {
 int okmd_last_error();
 char* okmd_last_error_message();
 
-char* okmd_scan_file(FILE *fp, bool isDebug);
+char* okmd_scan_file(char *path, bool isDebug);
 
 #ifdef __cplusplus
 }

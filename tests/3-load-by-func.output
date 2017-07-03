@@ -2,10 +2,9 @@
 ## Load By Func..
 
 ```php
-	echo "Bar";
-	if (true) {
-		echo "!!!!";
-	}
+function main() {
+	bar();
+}
 ```
 
 blbla...

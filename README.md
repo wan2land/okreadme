@@ -21,7 +21,9 @@ type `okreadme -v`. print `Is Your README OK? v0.x`.
 
 ```
 ```c
+
 #include<stdio.h>
+
 int main() {
 	// section:main
 	printf("Hello World\n");
@@ -34,7 +36,9 @@ int main() {
 그리고 `templates/hello.c`라는 파일이 다음과 같이 작성되어있다면,
 
 ```c
+
 #include<stdio.h>
+
 int main() {
 	// section:main
 	printf("Hello World\n");
@@ -122,4 +126,3 @@ function bar()
 
 - http://www.dreamy.pe.kr/zbxe/CodeClip/3766012
 - http://tldp.org/LDP/abs/html/comparison-ops.html
-

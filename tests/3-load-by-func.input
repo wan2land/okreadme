@@ -1,6 +1,6 @@
 
 ## Load By Func..
 
-%% insert ../templates/hello.php@function bar()
+@code("../templates/hello.php@main")
 
 blbla...

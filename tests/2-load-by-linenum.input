@@ -1,6 +1,6 @@
 
 ## Load By Linenums..
 
-%% insert ../templates/hello.c:4-7
+@code("../templates/hello.c:4-9")
 
 blbla...

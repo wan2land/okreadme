@@ -1,6 +1,6 @@
-Hello World Test String
-=======================
 
-기본은 이렇게 넣습니다.
+## Load By Func..
 
-@code("templates/hello.c@main")
+@code("templates/hello.php@main")
+
+blbla...

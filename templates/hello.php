@@ -5,39 +5,36 @@ function foo()
 	echo "Foo";
 }
 
-/* area_func_bar { */
 function bar()
 {
+	// section:block
 	echo "Bar";
 	if (true) {
 		echo "!!!!";
 	}
+	//endsection
 }
-/* } */
 
 function baz_with_tab()
 {
-	/* area_func_baz_with_tab { */
+	/* section:area_func_baz_with_tab { */
 	echo "Hi I'm baz with tab";
-
-	// end
-	/* } */
+	/* endsection */
 }
 
 function baz_with_space()
 {
-    /* area_func_baz { */
+    /* section:area_func_baz */
     echo "Hi I'm baz with space";
-
-    // end
-    /* } */
+	/* endsection */
 }
 
+// section:main
 function main() {
 	bar();
 }
+// endsection
 
-
-/* area_issue1 { */
+/* section:area_issue1 */
 $container = new \Wandu\DI\Container();
-/* } */
+/* endsection */

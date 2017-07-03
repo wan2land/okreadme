@@ -25,25 +25,16 @@ int main(int argc, string argv[])
             }
         }
     }
-
-    // char buf[255];
-    // getcwd(buf, 255);
-    // printf("%s\n", buf);
-    // return 0;
-    FILE* fp = fopen(filename, "r");
-    if (!fp) {
-        printf("File %s does not exist!\n", filename);
-        return 1;
-    }
-
-    char *result = okmd_scan_file(fp, isDebug);
+    char path[255];
+    getcwd(path, 255);
+    strcat(path, "/");
+    strcat(path, filename);
+    char *result = okmd_scan_file(path, isDebug);
     if (result == NULL) {
-        fclose(fp);
         fputs(okmd_last_error_message(), stderr);
         return 1;
     }
 
     printf("%s\n", result);
-    fclose(fp);
     return 0;
 }

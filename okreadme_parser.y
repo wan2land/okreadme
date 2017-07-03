@@ -3,6 +3,8 @@
     #include <stdlib.h>
     #include <string.h>
     #include <ctype.h>
+    #include <libgen.h>
+    #include <unistd.h>
     #include "okreadme_type.h"
 
     #define RTRIM(__str) {\
@@ -175,7 +177,7 @@ void _call_code(char* file, char* type) {
         return;
     }
     if (type == NULL) {
-        char *ext = strchr(filename, '.');
+        char *ext = strrchr(filename, '.');
         if (ext) {
             type = ext + 1;
         }
@@ -190,14 +192,18 @@ void _call_code(char* file, char* type) {
     ssize_t read;
 
     if (issub == 2) {
+        int is_start = 0;
         line_num = 1;
         char* section_start = strconcat(strdup("section:"), sub);
+
         while ((read = getline(&line, &len, fp)) != -1) {
             if (strstr(line, section_start) != NULL) {
                 line_start = line_num + 1;
+                is_start = 1;
             }
-            if (strstr(line, "endsection") != NULL) {
+            if (is_start && strstr(line, "endsection") != NULL) {
                 line_end = line_num - 1;
+                break;
             }
             line_num++;
         }
@@ -215,7 +221,6 @@ void _call_code(char* file, char* type) {
         }
         line_num++;
     }
-
     RTRIM(code);
 
     char* code_dup = strdup(code);
@@ -224,13 +229,12 @@ void _call_code(char* file, char* type) {
 
     // result
     {
-        char* line = strtok(code, "\n");
-        while (line != NULL) {
+        char *line;
+        while ((line = strsep(&code, "\n")) != NULL) {
             if (strlen(line) > intersect_p) {
                 _output_write(line + intersect_p);
             }
             _output_write("\n");
-            line = strtok(NULL, "\n");
         }
     }
     RTRIM(output);
@@ -299,7 +303,16 @@ void _output_write(char *appender) {
     output = strconcat(output, appender);
 }
 
-char* okmd_scan_file(FILE *fp, bool isDebug) {
+char* okmd_scan_file(char *path, bool isDebug) {
+    // printf("%s\n", path);
+    FILE* fp = fopen(path, "r");
+    chdir(dirname(path));
+    if (!fp) {
+        okmd_error_type = ERROR_FILE_NOT_FOUND;
+        sprintf(okmd_error_message, "file %s does not found.\n", path);
+        return NULL;
+    }
+
     yyin = fp;
     output = (char *)malloc(1);
     *output = '\0';
@@ -307,8 +320,11 @@ char* okmd_scan_file(FILE *fp, bool isDebug) {
         yyparse();
     } while(!feof(yyin));
     if (okmd_error_type != ERROR_NONE) {
+        fclose(fp);
         return NULL;
     }
+    output[strlen(output) - 1] = '\0';
+    fclose(fp);
     return output;
 }
 

@@ -2,7 +2,9 @@
 ## Load By Func..
 
 ```php
+function main() {
 	bar();
+}
 ```
 
 blbla...
