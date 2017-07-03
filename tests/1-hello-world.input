@@ -1,6 +1,6 @@
 
 ## Hello World
 
-%% insert ../templates/hello.c
+@code("../templates/hello.c")
 
 blabla...

@@ -15,9 +15,11 @@
     char okmd_error_message[100];
 
 
-    char* output;
+    // str added
+    char* strconcat(char* self, char* appender);
 
     // output to output
+    char* output;
     void _output_write(char *appender);
 
     // function call
@@ -123,20 +125,36 @@ param: T_STRING {
 
 void _call_code(char* file, char* type) {
     char *filename, *sub;
-    int issub = 0;
-    
+    int issub = 0, line_start = 0, line_end = -1;
+    int line_num = 1;
+
     filename = strdup(file);
 
     sub = strchr(file, ':');
     if (sub) {
         issub = 1;
         filename[sub - file] = '\0';
+        sub = sub + 1; // escape :
+        char* pivot = sub;
+        for (int i = 0; *pivot != '\0'; i++) {
+            if (*pivot == '-') {
+                *pivot = '\0';
+                if (*(pivot + 1) != '\0') {
+                    line_end = atoi(pivot + 1);
+                }
+                break;
+            }
+            pivot = pivot + 1;
+        }
+        line_start = atoi(sub);
+        // printf("sub%d ~ %d\n", line_start, line_end);
     }
     if (issub == 0) {
         sub = strchr(file, '@');
         if (sub) {
             issub = 2;
             filename[sub - file] = '\0';
+            sub = sub + 1; // escape @
         }
     }
     FILE* fp = fopen(filename, "r");
@@ -156,34 +174,73 @@ void _call_code(char* file, char* type) {
     if (type) _output_write(type);
     _output_write("\n");
     
-    char buff[255];
 
-    if (issub == 0) {
-        while (!feof(fp)) {
-            if (fgets(buff, sizeof(buff), fp)) {
-                _output_write(buff);
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    if (issub == 2) {
+        line_num = 1;
+        char* section_start = strconcat(strdup("section:"), sub);
+        while ((read = getline(&line, &len, fp)) != -1) {
+            if (strstr(line, section_start) != NULL) {
+                line_start = line_num + 1;
             }
+            if (strstr(line, "endsection") != NULL) {
+                line_end = line_num - 1;
+            }
+            line_num++;
         }
-        _output_write("\n");
-    } else if (issub == 1) {
-    } else if (issub == 2) {
+        free(section_start);
     }
 
-    _output_write("```\n");
+    char* code = (char*)malloc(1);
+    code[0] = '\0';
+
+    rewind(fp);
+    line_num = 1;
+    while ((read = getline(&line, &len, fp)) != -1) {
+        if (line_num >= line_start && (line_end == -1 || line_num <= line_end)) {
+            code = strconcat(code, line);
+        }
+        line_num++;
+    }
+
+    int rtrim_len = strlen(code);
+    while (rtrim_len-- > 0) {
+        if (code[rtrim_len] == 0x00) code[rtrim_len] = '\0';
+        else if (code[rtrim_len] == 0x09) code[rtrim_len] = '\0';
+        else if (code[rtrim_len] == 0x0a) code[rtrim_len] = '\0';
+        else if (code[rtrim_len] == 0x0b) code[rtrim_len] = '\0';
+        else if (code[rtrim_len] == 0x0c) code[rtrim_len] = '\0';
+        else if (code[rtrim_len] == 0x0d) code[rtrim_len] = '\0';
+        else if (code[rtrim_len] == 0x20) code[rtrim_len] = '\0';
+        else break;
+    }
+
+    _output_write(code);
+    _output_write("\n```\n");
+
+    free(code);
     free(filename);
     fclose(fp);
 }
-void _output_write(char *appender)
-{
-    int self_size = strlen(output);
+
+char* strconcat(char* self, char* appender) {
+    int self_size = strlen(self);
     int appender_size = strlen(appender);
     int i;
-    output = (char *) realloc(output, (self_size + appender_size + 1) * sizeof(char));
-    if (!output) {
+    self = (char *) realloc(self, (self_size + appender_size + 1) * sizeof(char));
+    if (!self) {
         printf("fuck?!\n");
         exit(1);
     }
-    strcat(output, appender);
+    strcat(self, appender);
+    return self;
+}
+
+void _output_write(char *appender) {
+    output = strconcat(output, appender);
 }
 
 char* okmd_scan_file(FILE *fp, bool isDebug) {

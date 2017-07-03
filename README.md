@@ -25,10 +25,11 @@ type `okreadme -v`. print `Is Your README OK? v0.x`.
 #include<stdio.h>
 
 int main() {
+	// section:main
 	printf("Hello World\n");
 	return 0;
+	// endsection
 }
-
 ```
 ```
 
@@ -39,10 +40,11 @@ int main() {
 #include<stdio.h>
 
 int main() {
+	// section:main
 	printf("Hello World\n");
 	return 0;
+	// endsection
 }
-
 ```
 
 **Command**

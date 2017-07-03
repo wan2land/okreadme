@@ -2,6 +2,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "okreadme_lib.h"
 
 typedef char* string;
@@ -25,6 +26,10 @@ int main(int argc, string argv[])
         }
     }
 
+    // char buf[255];
+    // getcwd(buf, 255);
+    // printf("%s\n", buf);
+    // return 0;
     FILE* fp = fopen(filename, "r");
     if (!fp) {
         printf("File %s does not exist!\n", filename);
