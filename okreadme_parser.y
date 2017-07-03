@@ -2,7 +2,16 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include <ctype.h>
     #include "okreadme_type.h"
+
+    #define RTRIM(__str) {\
+        long rtrim_len = strlen(__str);\
+        while (rtrim_len-- > 0) {\
+            if (isspace(__str[rtrim_len])) __str[rtrim_len] = '\0';\
+            else break;\
+        }\
+    }
 
     extern FILE *yyin;
 
@@ -16,6 +25,7 @@
 
 
     // str added
+    int intersect_lines(char* lines);
     char* strconcat(char* self, char* appender);
 
     // output to output
@@ -206,19 +216,24 @@ void _call_code(char* file, char* type) {
         line_num++;
     }
 
-    int rtrim_len = strlen(code);
-    while (rtrim_len-- > 0) {
-        if (code[rtrim_len] == 0x00) code[rtrim_len] = '\0';
-        else if (code[rtrim_len] == 0x09) code[rtrim_len] = '\0';
-        else if (code[rtrim_len] == 0x0a) code[rtrim_len] = '\0';
-        else if (code[rtrim_len] == 0x0b) code[rtrim_len] = '\0';
-        else if (code[rtrim_len] == 0x0c) code[rtrim_len] = '\0';
-        else if (code[rtrim_len] == 0x0d) code[rtrim_len] = '\0';
-        else if (code[rtrim_len] == 0x20) code[rtrim_len] = '\0';
-        else break;
-    }
+    RTRIM(code);
 
-    _output_write(code);
+    char* code_dup = strdup(code);
+    int intersect_p = intersect_lines(code_dup);
+    free(code_dup);
+
+    // result
+    {
+        char* line = strtok(code, "\n");
+        while (line != NULL) {
+            if (strlen(line) > intersect_p) {
+                _output_write(line + intersect_p);
+            }
+            _output_write("\n");
+            line = strtok(NULL, "\n");
+        }
+    }
+    RTRIM(output);
     _output_write("\n```\n");
 
     free(code);
@@ -226,11 +241,52 @@ void _call_code(char* file, char* type) {
     fclose(fp);
 }
 
+int intersect_lines(char* lines) {
+    char buff[100];
+    int buff_p = 0;
+    int is_first = 1;
+    
+    char* line = strtok(lines, "\n");
+    while (line != NULL) {
+        char* line_dup = strdup(line);
+        RTRIM(line_dup);
+        if (strlen(line_dup)) {
+            if (is_first) {
+                int ilen = strlen(line);
+                for (int i = 0; i < ilen; i++) {
+                    if (line[i] == ' ' || line[i] == '\t') {
+                        buff_p = i + 1;
+                        buff[i] = line[i];
+                    } else {
+                        break;
+                    }
+                }
+                is_first = 0;
+            } else {
+                int ilen = buff_p;
+                buff_p = 0;
+                for (int i = 0; i < ilen; i++) {
+                    if ((line[i] == ' ' || line[i] == '\t') && buff[i] == line[i]) {
+                        buff_p = i + 1;
+                        buff[i] = line[i];
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        free(line_dup);
+        line = strtok(NULL, "\n");
+    }
+
+    return buff_p;
+}
+
 char* strconcat(char* self, char* appender) {
     int self_size = strlen(self);
     int appender_size = strlen(appender);
     int i;
-    self = (char *) realloc(self, (self_size + appender_size + 1) * sizeof(char));
+    self = (char *)realloc(self, (self_size + appender_size + 1) * sizeof(char));
     if (!self) {
         printf("fuck?!\n");
         exit(1);
