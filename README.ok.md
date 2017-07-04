@@ -8,7 +8,7 @@ If you want **require** syntax in Markdown, use it.
 ## Installation
 
 ```sh
-$ git clone git@github.com:wan2land/okreadme
+$ git clone https://github.com/wan2land/okreadme.git
 $ cd okreadme
 $ make
 $ cp okreadme /your/path/bin
