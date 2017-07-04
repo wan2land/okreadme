@@ -45,7 +45,7 @@ $ okreadme README.ok.md > README.md # default input is README.ok.md
 
 ### 1. Print all source.
 
-show [template/hello.c](template/hello.c) file.
+show [templates/hello.c](templates/hello.c) file.
 
 ```
 @code("templates/hello.c")
@@ -58,7 +58,7 @@ show [template/hello.c](template/hello.c) file.
 
 ### 2. Print subset by line numbers.
 
-show [template/hello.c](template/hello.c) file.
+show [templates/hello.c](templates/hello.c) file.
 
 ```
 @code("templates/hello.c:4-8")
@@ -70,7 +70,7 @@ show [template/hello.c](template/hello.c) file.
 
 ### 3. Print subset by section name.
 
-show [template/hello.php](template/hello.php) file.
+show [templates/hello.php](templates/hello.php) file.
 
 ```
 @code("templates/hello.php@code-by-section-name")
