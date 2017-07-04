@@ -10,6 +10,7 @@ typedef enum {false, true} bool;
 
 enum okmd_error {
     ERROR_NONE = 0,
+    ERROR_SYNTAX,
     ERROR_UNDEFINED_FUNCTION,
     ERROR_MORE_PARAMS,
     ERROR_INVALID_PARAMS, // type error

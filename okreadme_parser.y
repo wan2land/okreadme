@@ -54,11 +54,12 @@
 
 %%
 
-okreadme: line
-    | okreadme T_NEWLINE line {
-        
-    }
+okreadme: /* nothing */
+    | lines
     ;
+
+lines: line
+    | lines T_NEWLINE line;
 
 line: {
         _output_write("\n");
@@ -305,6 +306,11 @@ char* strconcat(char* self, char* appender) {
 
 void _output_write(char *appender) {
     output = strconcat(output, appender);
+}
+
+void yyerror(const char *s) {
+    okmd_error_type = ERROR_SYNTAX;
+    sprintf(okmd_error_message, "syntax error.\n");
 }
 
 char* okmd_scan_file(char *path, bool isDebug) {

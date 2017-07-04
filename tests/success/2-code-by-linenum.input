@@ -1,0 +1,14 @@
+Code By Linenums
+================
+
+## from ~ to
+
+@code("../../templates/hello.c:4-8")
+
+## from ~
+
+@code("../../templates/hello.c:4-")
+
+## ~ to
+
+@code("../../templates/hello.c:-8")

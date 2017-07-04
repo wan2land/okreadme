@@ -1,0 +1,9 @@
+Code Indent Multiline
+====================
+
+```php
+if (something()) {
+    return false;
+}
+return true;
+```

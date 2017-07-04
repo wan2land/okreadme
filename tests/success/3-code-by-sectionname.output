@@ -1,0 +1,8 @@
+Code By Section Name
+====================
+
+```php
+function codeBySectionName() {
+    bar();
+}
+```

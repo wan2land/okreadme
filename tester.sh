@@ -13,19 +13,30 @@ run_test() {
         printf "Validation file %s is missing\n" "$2"
         continue;
     fi
-
     printf "  - test %s ... " "$1"
 
     run_out=${1%%.*}".test"
-    # Run application, redirect in file to app, and output to out file
-    "./$exe" "$1" > $run_out
 
-    e_code=$?
-    if [ $e_code != 0 ]; then
-            printf "FAILS ON RUN.. : %d\n" "$e_code"
-            return
+    if [ "$3" = "success" ]; then
+
+        # Run application, redirect in file to app, and output to out file
+        "./$exe" "$1" > $run_out 2>&1
+
+        e_code=$?
+        if [ $e_code != 0 ]; then
+                printf "FAILS ON RUN.. : %d\n" "$e_code"
+                return
+        fi
+    else
+        # Run application, redirect in file to app, and output to out file
+        "./$exe" "$1" > $run_out 2>&1
+
+        e_code=$?
+        if [ $e_code = 0 ]; then
+                printf "FAILS ON RUN.. : %d\n" "$e_code"
+                return
+        fi
     fi
-
     # Execute diff
     # echo "$diff $run_out $2"
     $diff $run_out $2
@@ -43,13 +54,23 @@ run_test() {
     fi
 }
 
-echo "[Run Tests...]"
-for file in tests/*.input; do
+echo "[Run Tests, Success Cases]"
+for file in tests/success/*.input; do
     # Padd file_base with suffixes
     file_in="${file%%.*}.input"             # The in file
     file_out="${file%%.*}.output"       # The out file
 
-    run_test $file_in $file_out
+    run_test $file_in $file_out "success"
+
+done
+
+echo "[Run Tests, Error Cases]"
+for file in tests/fail/*.input; do
+    # Padd file_base with suffixes
+    file_in="${file%%.*}.input"             # The in file
+    file_out="${file%%.*}.output"       # The out file
+
+    run_test $file_in $file_out "fail"
 
 done
 

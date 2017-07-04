@@ -1,0 +1,36 @@
+Code By Linenums
+================
+
+## from ~ to
+
+```c
+// hello world :-)
+
+printf("Hello World\n");
+
+return 0;
+```
+
+## from ~
+
+```c
+	// hello world :-)
+
+	printf("Hello World\n");
+
+	return 0;
+}
+```
+
+## ~ to
+
+```c
+#include<stdio.h>
+
+int main() {
+	// hello world :-)
+
+	printf("Hello World\n");
+
+	return 0;
+```

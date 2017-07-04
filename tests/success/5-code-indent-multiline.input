@@ -1,0 +1,4 @@
+Code Indent Multiline
+====================
+
+@code("../../templates/hello.php@code-indent-multiline")

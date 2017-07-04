@@ -1,40 +1,26 @@
 <?php
 
-function foo()
+function dummy()
 {
-	echo "Foo";
+    // do something
 }
 
-function bar()
-{
-	// section:block
-	echo "Bar";
-	if (true) {
-		echo "!!!!";
-	}
-	//endsection
-}
 
-function baz_with_tab()
-{
-	/* section:area_func_baz_with_tab { */
-	echo "Hi I'm baz with tab";
-	/* endsection */
-}
-
-function baz_with_space()
-{
-    /* section:area_func_baz */
-    echo "Hi I'm baz with space";
-	/* endsection */
-}
-
-// section:main
-function main() {
-	bar();
+// section:code-by-section-name
+function codeBySectionName() {
+    bar();
 }
 // endsection
 
-/* section:area_issue1 */
-$container = new \Wandu\DI\Container();
-/* endsection */
+class TestClass
+{
+    public function codeIndentMultilineMethod()
+    {
+        // section:code-indent-multiline
+        if (something()) {
+            return false;
+        }
+        return true;
+        // endsection
+    }
+}

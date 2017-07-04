@@ -1,16 +1,14 @@
-
-## Hello World
+Hello World
+===========
 
 ```c
-
 #include<stdio.h>
 
 int main() {
-	// section:main
+	// hello world :-)
+
 	printf("Hello World\n");
+
 	return 0;
-	// endsection
 }
 ```
-
-blabla...

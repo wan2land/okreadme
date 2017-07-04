@@ -1,6 +1,0 @@
-
-## Load By Linenums..
-
-@code("../templates/hello.c:4-9")
-
-blbla...

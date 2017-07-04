@@ -1,8 +1,0 @@
-## Load by Function Name, Using Comment Block
-
-```php
-echo "Bar";
-if (true) {
-	echo "!!!!";
-}
-```
