@@ -1,106 +1,85 @@
-Is You README Ok?
-=================
+OK! Readme
+==========
 
-if you want **require** syntax in README.md...
+If you want **require** syntax in Markdown, use it.
 
-README.ok.md -> README.md
+**OKReadme** change `README.ok.md` file to `README.md`. it's very simple.
 
 ## Installation
 
 ```sh
-$ git clone git@github.com:wan2land/is-your-readme-ok.git
-$ cd is-your-readme-ok
+$ git clone git@github.com:wan2land/okreadme
+$ cd okreadme
+$ make
 $ cp okreadme /your/path/bin
 ```
 
-type `okreadme -v`. print `Is Your README OK? v0.x`.
+type `okreadme -v`, the output is as follows:
+
+```
+OK Readme 0.1.0
+Is Your Readme OK? :-)
+```
 
 ## How to use
 
-`README.ok.md` 파일을 다음과 같이 작성합시다.
+create `README.ok.md` file, then write the flowing. 
 
 ```
 @code("templates/hello.c")
 ```
 
-그리고 `templates/hello.c`라는 파일이 다음과 같이 작성되어있다면,
+the command is also very easy.
 
-@code("templates/hello.c")
-
-**Command**
-
-```
+```sh
 $ okreadme > README.md
+$ okreadme README.ok.md > README.md # default input is README.ok.md
 ```
 
-## Command
+**Result**
 
-```
-$ okreadme {targetfile}
-```
+@code("templates/hello.c")
 
-That's all. Default `{targetfile}` is `README.ok.md`
-If you want to save output, use command below.
-
-```
-$ okreadme {targetfile} > README.md
-```
 
 ## Syntax
 
 ### 1. Print all source.
 
+show [template/hello.c](template/hello.c) file.
+
 ```
-ok,, include templates/hello.c
+@code("templates/hello.c")
 ```
 
 **Result**
 
-ok,, include templates/hello.c
+@code("templates/hello.c")
+
 
 ### 2. Print subset by line numbers.
 
-```
-ok,, include templates/hello.c, 4, 20 # line 4 ~ 20
-ok,, include templates/hello.c, 4     # line 4 ~ end
-ok,, include templates/hello.c, , 20  # line start ~ 20
-```
-
-ok,, include templates/hello.c, 4, 20 # line 4 ~ 20
-ok,, include templates/hello.c, 4     # line 4 ~ end
-ok,, include templates/hello.c, , 20  # line start ~ 20
-
-### 3. Print subset by function name.
-
-The language using the `{`, `}` chracters as a code block is all available.
-(cf. c, php, javascript, ... )
+show [template/hello.c](template/hello.c) file.
 
 ```
-ok,, include templates/hello.c, "int main()"
+@code("templates/hello.c:4-8")
 ```
 
-or,
+**Result**
 
-```php
-/* area_func_bar { */
-function bar()
-{
-	echo "Bar";
-	if (true) {
-		echo "!!!!";
-	}
-}
-/* } */
-```
+@code("templates/hello.c:4-8")
+
+### 3. Print subset by section name.
+
+show [template/hello.php](template/hello.php) file.
 
 ```
-%% include src/main.c@area_func_bar
+@code("templates/hello.php@code-by-section-name")
 ```
 
-## Todos
+**Result**
 
-- tab index
-- install script
+@code("templates/hello.php@code-by-section-name")
+
 
 ## Ref.
 
