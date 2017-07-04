@@ -55,17 +55,21 @@
 %%
 
 okreadme: line
-    | okreadme line
+    | okreadme T_NEWLINE line {
+        
+    }
     ;
 
-line: T_NEWLINE {
+line: {
         _output_write("\n");
     }
-    | T_TEXT T_NEWLINE {
+    | T_TEXT {
         _output_write($1);
         _output_write("\n");
     }
-    | function_call T_NEWLINE
+    | function_call {
+        _output_write("\n");
+    }
     ;
 
 function_call: function_name function_param {
@@ -238,7 +242,7 @@ void _call_code(char* file, char* type) {
         }
     }
     RTRIM(output);
-    _output_write("\n```\n");
+    _output_write("\n```");
 
     free(code);
     free(filename);
@@ -323,7 +327,11 @@ char* okmd_scan_file(char *path, bool isDebug) {
         fclose(fp);
         return NULL;
     }
-    output[strlen(output) - 1] = '\0';
+
+    int output_len = strlen(output);
+    if (output_len > 1) {
+        output[strlen(output) - 1] = '\0';
+    }
     fclose(fp);
     return output;
 }

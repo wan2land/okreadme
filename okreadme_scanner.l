@@ -1,5 +1,3 @@
-%x ST_IN_SCRIPTING
-
 %{
 #include <string.h>
 #include <stdio.h>
@@ -7,13 +5,33 @@
 
 %}
 
+%x ST_IN_SCRIPTING
+%x ST_CODE_BLOCK
+
 %%
 
-[\n] {
+<INITIAL>[\n] {
     return T_NEWLINE;
 }
-<INITIAL>[^@\n][^\n]* {
+<INITIAL>[^@\n`][^\n]* {
     yylval.string = strdup(yytext);
+    return (T_TEXT);
+}
+<INITIAL>```[^\n]* {
+    yylval.string = strdup(yytext);
+    BEGIN(ST_CODE_BLOCK);
+    return (T_TEXT);
+}
+<ST_CODE_BLOCK>(`[^\n`]*)|(``[^\n`]*)|([^\n`]*) {
+    yylval.string = strdup(yytext);
+    return (T_TEXT);
+}
+<ST_CODE_BLOCK>[\n] {
+    return T_NEWLINE;
+}
+<ST_CODE_BLOCK>"```" {
+    yylval.string = strdup(yytext);
+    BEGIN(INITIAL);
     return (T_TEXT);
 }
 <INITIAL>@[A-Za-z_][A-Za-z0-9_]*  {

@@ -34,7 +34,6 @@ int main(int argc, string argv[])
         fputs(okmd_last_error_message(), stderr);
         return 1;
     }
-
-    printf("%s\n", result);
+    printf("%s", result);
     return 0;
 }

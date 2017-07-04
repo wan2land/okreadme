@@ -1,0 +1,5 @@
+## Load by Function Name, Using Comment Block
+
+```
+@code("../templates/hello.php@block")
+```

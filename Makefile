@@ -23,11 +23,8 @@ okreadme_type.o: okreadme_type.c okreadme_type.h
 readme:
 	./okreadme > README.md
 
-# test:
-# 	@$(TESTER)
-
 test: okreadme
-	okreadme test.ok.md
+	@$(TESTER)
 	
 clean:
 	rm -f *.o

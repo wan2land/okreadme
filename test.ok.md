@@ -1,6 +1,0 @@
-
-## Load By Func..
-
-@code("templates/hello.php@main")
-
-blbla...
