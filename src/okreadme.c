@@ -13,7 +13,7 @@ int main(int argc, string argv[])
     string filename = "README.ok.md";
     if (argc >= 2) {
         if (strcmp(argv[1], "-v") == 0) {
-            printf("OK Readme 0.1.0\nIs Your Readme OK? :-)\n");
+            printf("OK Readme 0.2.0\nIs Your Readme OK? :-)\n");
             return 0;
         }
         int i;
