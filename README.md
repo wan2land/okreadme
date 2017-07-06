@@ -1,7 +1,7 @@
-OK! Readme
+  OK! Readme
 ==========
 
-If you want **require** syntax in Markdown, use it.
+If you want **require** syntax in Markdown, use it. :-)
 
 **OKReadme** change `README.ok.md` file to `README.md`. it's very simple.
 
@@ -50,10 +50,9 @@ int main() {
 }
 ```
 
-
 ## Syntax
 
-### 1. Print all source.
+### 1. insert entire source.
 
 show [templates/hello.c](templates/hello.c) file.
 
@@ -76,7 +75,7 @@ int main() {
 ```
 
 
-### 2. Print subset by line numbers.
+### 2. insert part of source by line numbers.
 
 show [templates/hello.c](templates/hello.c) file.
 
@@ -94,7 +93,7 @@ printf("Hello World\n");
 return 0;
 ```
 
-### 3. Print subset by section name.
+### 3. insert part of source by section name.
 
 show [templates/hello.php](templates/hello.php) file.
 
@@ -111,7 +110,41 @@ function codeBySectionName() {
 ```
 
 
-## Ref.
+### 4. fix language in syntax highlighting.
 
-- http://www.dreamy.pe.kr/zbxe/CodeClip/3766012
-- http://tldp.org/LDP/abs/html/comparison-ops.html
+use the second parameter. it's very simple.
+
+show [templates/hello.unknown](templates/hello.unknown) file.
+
+```
+@code("templates/hello.unknown", "go")
+```
+
+**Result**
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("hello world")
+}
+```
+
+## Tips
+
+### OKREADME with git hooks
+
+install okreadme, then copy the following and paste it into `.git/hooks/pre-commit`.
+
+```sh
+#!/bin/sh
+
+if [ -f "README.ok.md" ]; then
+	okreadme > README.md
+	git add README.md
+fi
+```
+
+that's all. manage only `README.ok.md`.
