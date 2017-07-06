@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include "okreadme_type.h"
 
+#define OKREADME_VERSION "v0.1.0"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
