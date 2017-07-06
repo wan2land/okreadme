@@ -95,6 +95,9 @@ return 0;
 
 ### 3. insert part of source by section name.
 
+**i made it because i needed it.** have you noticed that that the open source package has been updated,
+but your `README.md` has not been updated? use it in your test code and `README.md`.
+
 show [templates/hello.php](templates/hello.php) file.
 
 ```
