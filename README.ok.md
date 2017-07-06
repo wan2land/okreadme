@@ -72,7 +72,7 @@ show [templates/hello.c](templates/hello.c) file.
 **i made it because i needed it.** have you noticed that that the open source package has been updated,
 but your `README.md` has not been updated? use it in your test code and `README.md`.
 
-show [templates/hello.php](templates/hello.php) file.
+(show [templates/hello.php](templates/hello.php) file)
 
 ```
 @code("templates/hello.php@code-by-section-name")
@@ -81,6 +81,18 @@ show [templates/hello.php](templates/hello.php) file.
 **Result**
 
 @code("templates/hello.php@code-by-section-name")
+
+and, it automatically adjusts when there is a tab index over several lines.
+
+(show [templates/hello.php](templates/hello.php) file)
+
+```
+@code("templates/hello.php@code-indent-multiline")
+```
+
+**Result**
+
+@code("templates/hello.php@code-indent-multiline")
 
 
 ### 4. fix language in syntax highlighting.

@@ -98,7 +98,7 @@ return 0;
 **i made it because i needed it.** have you noticed that that the open source package has been updated,
 but your `README.md` has not been updated? use it in your test code and `README.md`.
 
-show [templates/hello.php](templates/hello.php) file.
+(show [templates/hello.php](templates/hello.php) file)
 
 ```
 @code("templates/hello.php@code-by-section-name")
@@ -110,6 +110,23 @@ show [templates/hello.php](templates/hello.php) file.
 function codeBySectionName() {
     bar();
 }
+```
+
+and, it automatically adjusts when there is a tab index over several lines.
+
+(show [templates/hello.php](templates/hello.php) file)
+
+```
+@code("templates/hello.php@code-indent-multiline")
+```
+
+**Result**
+
+```php
+if (something()) {
+    return false;
+}
+return true;
 ```
 
 
