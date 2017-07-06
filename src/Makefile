@@ -38,7 +38,7 @@ clean:
 
 .PHONY = clean
 
-install:
+install: $(OKR)
 	@mkdir -p $(INSTALL_BIN)
 	cp -pf $(OKR) $(INSTALL_BIN)
 
