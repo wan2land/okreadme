@@ -11,7 +11,7 @@ If you want **require** syntax in Markdown, use it.
 $ git clone https://github.com/wan2land/okreadme.git
 $ cd okreadme
 $ make
-$ cp okreadme /your/path/bin
+$ make install PREFIX=/your/path/bin
 ```
 
 type `okreadme -v`, the output is as follows:
