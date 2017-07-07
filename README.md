@@ -11,13 +11,13 @@ If you want **require** syntax in Markdown, use it. :-)
 $ git clone https://github.com/wan2land/okreadme.git
 $ cd okreadme
 $ make
-$ make install PREFIX=/your/path/bin
+$ make install PREFIX=/your/path # default PREFIX=/usr/local, then install /usr/local/bin path!
 ```
 
 type `okreadme -v`, the output is as follows:
 
 ```
-OK Readme 0.1.0
+OK Readme v0.1.0
 Is Your Readme OK? :-)
 ```
 
