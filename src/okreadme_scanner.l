@@ -13,7 +13,7 @@
 <INITIAL>[\n] {
     return T_NEWLINE;
 }
-<INITIAL>([^@\n`][^\n]*) {
+<INITIAL>([^@`\n][^\n]*)|(`)|(`[^`\n][^\n]*)|(``)|(``[^`\n][^\n]*) {
     yylval.string = strdup(yytext);
     return T_TEXT;
 }
@@ -22,7 +22,7 @@
     BEGIN(ST_CODE_BLOCK);
     return T_TEXT;
 }
-<ST_CODE_BLOCK>(`[^\n`]*)|(``[^\n`]*)|([^\n`]*) {
+<ST_CODE_BLOCK>([^`\n]*)|(`[^`\n]*)|(``[^`\n]*) {
     yylval.string = strdup(yytext);
     return T_TEXT;
 }
