@@ -5,6 +5,8 @@ If you want **require** syntax in Markdown, use it. :-)
 
 **OKReadme** change `README.ok.md` file to `README.md`. it's very simple.
 
+(see, [README.ok.md](README.ok.md). understand what this project)
+
 ## Installation
 
 ```sh

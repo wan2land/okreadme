@@ -1,0 +1,4 @@
+Escape At Sign
+==============
+
+@code("../../templates/hello.php@block")
