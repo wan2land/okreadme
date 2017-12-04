@@ -48,7 +48,7 @@
 %type <vallist> function_param opt_param_list param_list
 %type <value> param
 
-%token T_NEWLINE T_FUNC_OPEN_BRACKET T_FUNC_CLOSE_BRACKET T_COMMA
+%token T_NEWLINE T_FUNC_OPEN_BRACKET T_FUNC_CLOSE_BRACKET T_COMMA T_ATSIGN
 %token <string> T_TEXT T_FUNC T_IDENT T_STRING
 %token <ival> T_NUMBER
 
@@ -61,11 +61,7 @@ okreadme: /* nothing */
 lines: line
     | lines T_NEWLINE line;
 
-line: {
-        _output_write("\n");
-    }
-    | T_TEXT {
-        _output_write($1);
+line: plain {
         _output_write("\n");
     }
     | function_call {
@@ -73,30 +69,39 @@ line: {
     }
     ;
 
-function_call: function_name function_param {
-        if (strcmp($1, "code") == 0) {
-            if ($2->count > 0) {
-                struct okmd_val *param1 = $2->first;
+plain: /* nothing */
+    | T_TEXT {
+        _output_write($1);
+    }
+    | T_ATSIGN T_TEXT {
+        _output_write($2);
+    }
+    ;
+
+function_call: T_ATSIGN function_name function_param {
+        if (strcmp($2, "code") == 0) {
+            if ($3->count > 0) {
+                struct okmd_val *param1 = $3->first;
                 struct okmd_val *param2 = param1->next;
                 if (param1->type != t_string) {
                     okmd_error_type = ERROR_INVALID_PARAMS;
-                    sprintf(okmd_error_message, "parameters 1 passed to @%s() must be be of the type string.\n", $1);
+                    sprintf(okmd_error_message, "parameters 1 passed to @%s() must be be of the type string.\n", $2);
                     // "called in blabla.md on line 30" will added
                 } else if (param2 != NULL && param2->type != t_string) {
                     okmd_error_type = ERROR_INVALID_PARAMS;
-                    sprintf(okmd_error_message, "parameters 2 passed to @%s() must be be of the type string or null.\n", $1);
+                    sprintf(okmd_error_message, "parameters 2 passed to @%s() must be be of the type string or null.\n", $2);
                     // "called in blabla.md on line 30" will added
                 } else {
                     _call_code(param1->value.sval, param2 ? param2->value.sval : NULL);
                 }
             } else {
                 okmd_error_type = ERROR_MORE_PARAMS;
-                sprintf(okmd_error_message, "@%s() expects at least 1 parameters, %d given.\n", $1, $2->count);
+                sprintf(okmd_error_message, "@%s() expects at least 1 parameters, %d given.\n", $2, $3->count);
                 // "in blabla.md on line 30" will added
             }
         } else {
             okmd_error_type = ERROR_UNDEFINED_FUNCTION;
-            sprintf(okmd_error_message, "call to undefined function @%s().\n", $1);
+            sprintf(okmd_error_message, "call to undefined function @%s().\n", $2);
             // "in blabla.md on line 30" will added
         }
     }
