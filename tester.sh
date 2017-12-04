@@ -13,6 +13,9 @@ run_test() {
         printf "Validation file %s is missing\n" "$2"
         continue;
     fi
+
+    rm -r tests/**/*.test
+
     printf "  - test %s ... " "$1"
 
     run_out=${1%%.*}".test"

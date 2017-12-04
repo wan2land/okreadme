@@ -1,6 +1,0 @@
-Escape Code block
-=================
-
-```
-@code("../../templates/hello.php@block")
-```

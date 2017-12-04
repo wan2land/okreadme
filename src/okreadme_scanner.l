@@ -62,6 +62,8 @@
 <ST_IN_SCRIPTING>"," {
     return (T_COMMA);
 }
+<ST_IN_SCRIPTING>[ \t\r\n]+ ;
+
 . {
     // printf("[L](%c)\n", yytext[0]);
     return (yytext[0]);
